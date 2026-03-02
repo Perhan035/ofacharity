@@ -26,11 +26,6 @@ window.addEventListener('DOMContentLoaded', function () {
             isButton: false
         },
         {
-            text: 'Contact',
-            href: '#section_6',
-            isButton: false
-        },
-        {
             text: 'Donate',
             href: 'donate.html',
             isButton: true

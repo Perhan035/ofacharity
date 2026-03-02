@@ -1,0 +1,15 @@
+.donation-card{
+    transition:0.3s;
+}
+
+.donation-card:hover{
+    transform:translateY(-5px);
+}
+
+.donation-card:focus,
+.donation-card:active{
+    transform:none;
+}
+.donate-panel{
+    transition:all 0.3s ease;
+}
