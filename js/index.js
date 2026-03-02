@@ -216,7 +216,7 @@ window.addEventListener('DOMContentLoaded', function () {
     var ownerInfo = {
     name: "Ilyana Song",
     role: "Founder of Kind Heart Charity",
-    img: "../images/portrait-volunteer-who-organized-donations-charity.jpg",
+    img: "images/portrait-volunteer-who-organized-donations-charity.jpg",
     shortText: "Ilyana founded this charity to support families in need.",
     fullText: "Ilyana founded this charity to support families in need. With over 15 years of humanitarian experience, she has organized numerous international campaigns, focusing on education, sustainability and community development. She was inspired to create this charity because of her personal life, as she grew up in a family that struggled financially. Her passion for helping others and making a positive impact in the world led her to establish this organization, which has since helped thousands of people around the globe. Ilyana's dedication and commitment to this cause since the day she founded it has been unwavering and contagious to everyone around her."
     };
@@ -301,96 +301,157 @@ window.addEventListener('DOMContentLoaded', function () {
 
     // Hvatanje elemenata forme i regeks 
 
-    var nameRegex = /^[A-Za-z]{2,}$/;
-    var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    var nameRegex = /^[A-Z][a-zA-Z]{1,}$/;
+    var emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
     var messageRegex = /^.{10,}$/;
-    var form = document.querySelector(".contact-form");
+    var fileRegex = /\.(pdf|doc|docx)$/i;
 
-    var firstName = document.getElementById("first-name");
-    var lastName = document.getElementById("last-name");
-    var email = document.getElementById("email");
-    var message = document.getElementById("message");
+    var form = document.querySelector(".volunteer-form");
 
-    var formSuccess = document.getElementById("form-success");
+     var firstName = document.getElementById("volunteer-name");
+    var email = document.getElementById("volunteer-email");
+    var message = document.getElementById("volunteer-message");
+    var volunteerSubject = document.getElementById("volunteer-subject");
+    var cvInput = document.getElementById("inputGroupFile02");
+    var formSuccess = document.querySelector(".form-errors");
+
+   
+    
 
     // Logika za validaciju i slanje forme
 
     function validateFirstName(){
 
-    var error = document.getElementById("firstNameError");
-
     if(!nameRegex.test(firstName.value)){
-        error.textContent =
-        "Name must contain at least 2 letters.";
+        showError(firstName,
+        "Name must start with capital letter and contain at least 2 letters.");
         return false;
     }
 
-    error.textContent = "";
+    clearError(firstName);
     return true;
     }
 
-    function validateLastName(){
-
-    var error = document.getElementById("lastNameError");
-
-    if(!nameRegex.test(lastName.value)){
-        error.textContent =
-        "Last name must contain letters only.";
-        return false;
-    }
-
-    error.textContent = "";
-    return true;
-    }
 
     function validateEmail(){
 
-    var error = document.getElementById("emailError");
-
     if(!emailRegex.test(email.value)){
-        error.textContent =
-        "Email format is not valid.";
+        showError(email,
+        "Enter valid email (example@gmail.com)");
         return false;
     }
 
-    error.textContent = "";
+    clearError(email);
     return true;
-    }   
+    }  
 
     function validateMessage(){
 
-    var error = document.getElementById("messageError");
-
     if(!messageRegex.test(message.value)){
-        error.textContent =
-        "Message must contain at least 10 characters.";
+        showError(message,
+        "Message must contain at least 10 characters.");
         return false;
     }
 
-    error.textContent = "";
+    clearError(message);
+    return true;
+    
+    }
+
+    function validateSubject() {
+
+    if (volunteerSubject.value === "") {
+        showError(volunteerSubject,
+            "Please select volunteering type.");
+        return false;
+    }
+
+    clearError(volunteerSubject);
     return true;
     }
 
+
+    function validateCV() {
+
+    var file = cvInput.files[0];
+
+    if (!file) {
+        showError(cvInput,
+            "Please upload your CV.");
+        return false;
+    }
+
+    if (!fileRegex.test(file.name)) {
+        showError(cvInput,
+            "Allowed formats: PDF, DOC, DOCX.");
+        return false;
+    }
+
+    clearError(cvInput);
+    return true;
+    }
+
+    //Blur kada se korisnik pomeri sa inputa
     firstName.addEventListener("blur", validateFirstName);
-    lastName.addEventListener("blur", validateLastName);    
     email.addEventListener("blur", validateEmail);
     message.addEventListener("blur", validateMessage);
+    volunteerSubject.addEventListener("change", validateSubject);
+    cvInput.addEventListener("change", validateCV);
+
+    //Pokazivanje greske
+
+   function showError(input, message) {
+
+    var error = input.nextElementSibling;
+
+    // Ako ne postoji error element – napravimo ga
+    if (!error || error.tagName !== "SMALL") {
+
+        error = document.createElement("small");
+        error.className = "text-danger";
+
+        input.parentNode.insertBefore(error, input.nextSibling);
+    }
+
+    error.textContent = message;
+
+    input.classList.add("is-invalid");
+    input.classList.remove("is-valid");
+    }
+
+    function clearError(input) {
+
+    var error = input.nextElementSibling;
+
+    if (error && error.tagName === "SMALL") {
+        error.textContent = "";
+    }
+
+    input.classList.remove("is-invalid");
+    input.classList.add("is-valid");
+    }
+
+    //Submmit dugme funkcija
 
     form.addEventListener("submit", function(e){
 
     e.preventDefault();
 
-    var valid =
-        validateFirstName() &
-        validateLastName() &
-        validateEmail() &
-        validateMessage();
+    var val1 = validateFirstName();
+    var val2 = validateEmail();
+    var val3 = validateMessage();
+    var val4 = validateSubject();
+    var val5 = validateCV();
+
+    var valid = val1 && val2 && val3 && val4 && val5;
 
     if(valid){
-        document.getElementById("formSuccess")
-        .textContent =
+        formSuccess.textContent =
         "Message successfully sent!";
+    } else {
+        formSuccess.textContent = "";
     }
+
     });
 
 });
