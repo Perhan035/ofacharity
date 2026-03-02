@@ -1,7 +1,7 @@
 window.addEventListener('DOMContentLoaded', function () {
 
 
-    //Navbar sekcija JS-a
+    //Navbar sekcija
 
     // Navbar nizovi
     var nizNavbar = [
@@ -46,8 +46,6 @@ window.addEventListener('DOMContentLoaded', function () {
             isButton: false
         }
     ];
-
-
     //Logika navbar sekcije 
 
     var navUl = document.getElementById('mainNav');
@@ -76,7 +74,14 @@ window.addEventListener('DOMContentLoaded', function () {
         navUl.appendChild(li);
     }
 
-    //Info sekcija JS-a
+
+
+
+
+
+
+
+    //Info sekcija
     var nizInfo = [
         {
             title: "Become a volunteer",
@@ -104,19 +109,12 @@ window.addEventListener('DOMContentLoaded', function () {
         }
     ];
 
-
-
-
-
-
-    //Info sekcija
-
     // Hvatanje info bloka
     var infoContainer = document.querySelector('.section-padding .row');
 
     // Funkcija za kreiranje bloka
-    function createBlock(obj) {
-        var block = `
+    function napraviBlok(obj) {
+        var blok = `
             <div class="col-lg-3 col-md-6 col-12 mb-4 mb-lg-0">
                 <div class="featured-block d-flex justify-content-center align-items-center">
                     <a href="#" class="d-block open-popup" data-target="${obj.modal}">
@@ -125,31 +123,31 @@ window.addEventListener('DOMContentLoaded', function () {
                     </a>
                 </div>
             </div>`;
-        return block;
+        return blok;
     }
 
     // Dodavanje blokova u DOM
     for (var j = 0; j < nizInfo.length; j++) {
-        var blockHTML = createBlock(nizInfo[j]);
-        infoContainer.innerHTML += blockHTML;
+        var blokHTML = napraviBlok(nizInfo[j]);
+        infoContainer.innerHTML += blokHTML;
     }
 
     //Popup izgled i logika
 
-    var popupBlock = document.createElement("div");
+    var popupBlok = document.createElement("div");
 
-    popupBlock.style.position = "fixed";
-    popupBlock.style.top = "0";
-    popupBlock.style.left = "0";
-    popupBlock .style.width = "100%";
-    popupBlock.style.height = "100%";
-    popupBlock.style.backgroundColor = "rgba(0,0,0,0.6)";
-    popupBlock.style.display = "none";
-    popupBlock.style.justifyContent = "center";
-    popupBlock.style.alignItems = "center";
-    popupBlock.style.zIndex = "1000";
+    popupBlok.style.position = "fixed";
+    popupBlok.style.top = "0";
+    popupBlok.style.left = "0";
+    popupBlok .style.width = "100%";
+    popupBlok.style.height = "100%";
+    popupBlok.style.backgroundColor = "rgba(0,0,0,0.6)";
+    popupBlok.style.display = "none";
+    popupBlok.style.justifyContent = "center";
+    popupBlok.style.alignItems = "center";
+    popupBlok.style.zIndex = "1000";
 
-    document.body.appendChild(popupBlock);
+    document.body.appendChild(popupBlok);
     
     // Funkcija za otvaranje popupa
 
@@ -166,7 +164,7 @@ window.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-    popupBlock.innerHTML = `
+    popupBlok.innerHTML = `
         <div style="background:white; padding:30px; max-width:400px; width:90%; text-align:center; position:relative;">
             <h4>${titleText}</h4>
             <p>${contentText}</p>
@@ -174,11 +172,11 @@ window.addEventListener('DOMContentLoaded', function () {
         </div>
     `;
 
-    popupBlock.style.display = "flex";
+    popupBlok.style.display = "flex";
 
     // Dugme za zatvaranje
     document.getElementById("closePopup").addEventListener("click", function () {
-        popupBlock.style.display = "none";
+        popupBlok.style.display = "none";
     });
     }
 
@@ -199,17 +197,22 @@ window.addEventListener('DOMContentLoaded', function () {
     }
 
     // Zatvaranje popup-a klikom van prozora
-    popupBlock.addEventListener("click", function (e) {
-    if (e.target === popupBlock) {
-        popupBlock.style.display = "none";
+    popupBlok.addEventListener("click", function (e) {
+    if (e.target === popupBlok) {
+        popupBlok.style.display = "none";
     }
     });
 
 
 
+
+
+
+
+
     //Owner sekcija
 
-    // Owner sekcija podaci
+    // Podaci owner sekcije
     var ownerInfo = {
     name: "Ilyana Song",
     role: "Founder of Kind Heart Charity",
@@ -226,8 +229,8 @@ window.addEventListener('DOMContentLoaded', function () {
 
     var section = `
         <div class="row justify-content-center text-center">
-            <div class="col-lg-8">
-                <img src="${obj.img}" class="img-fluid rounded mb-3" style="max-width:200px;">
+            <div class="col-lg-6">
+                <img src="${obj.img}" class="img-fluid rounded mb-3" style="max-width:180px;">
                 <h3>${obj.name}</h3>
                 <p><strong>${obj.role}</strong></p>
 
@@ -285,7 +288,109 @@ window.addEventListener('DOMContentLoaded', function () {
         expanded = false;
     }
 
-});
+    });     
 
+
+
+
+
+
+
+
+    // Forma sekcija
+
+    // Hvatanje elemenata forme i regeks 
+
+    var nameRegex = /^[A-Za-z]{2,}$/;
+    var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    var messageRegex = /^.{10,}$/;
+    var form = document.querySelector(".contact-form");
+
+    var firstName = document.getElementById("first-name");
+    var lastName = document.getElementById("last-name");
+    var email = document.getElementById("email");
+    var message = document.getElementById("message");
+
+    var formSuccess = document.getElementById("form-success");
+
+    // Logika za validaciju i slanje forme
+
+    function validateFirstName(){
+
+    var error = document.getElementById("firstNameError");
+
+    if(!nameRegex.test(firstName.value)){
+        error.textContent =
+        "Name must contain at least 2 letters.";
+        return false;
+    }
+
+    error.textContent = "";
+    return true;
+    }
+
+    function validateLastName(){
+
+    var error = document.getElementById("lastNameError");
+
+    if(!nameRegex.test(lastName.value)){
+        error.textContent =
+        "Last name must contain letters only.";
+        return false;
+    }
+
+    error.textContent = "";
+    return true;
+    }
+
+    function validateEmail(){
+
+    var error = document.getElementById("emailError");
+
+    if(!emailRegex.test(email.value)){
+        error.textContent =
+        "Email format is not valid.";
+        return false;
+    }
+
+    error.textContent = "";
+    return true;
+    }   
+
+    function validateMessage(){
+
+    var error = document.getElementById("messageError");
+
+    if(!messageRegex.test(message.value)){
+        error.textContent =
+        "Message must contain at least 10 characters.";
+        return false;
+    }
+
+    error.textContent = "";
+    return true;
+    }
+
+    firstName.addEventListener("blur", validateFirstName);
+    lastName.addEventListener("blur", validateLastName);    
+    email.addEventListener("blur", validateEmail);
+    message.addEventListener("blur", validateMessage);
+
+    form.addEventListener("submit", function(e){
+
+    e.preventDefault();
+
+    var valid =
+        validateFirstName() &
+        validateLastName() &
+        validateEmail() &
+        validateMessage();
+
+    if(valid){
+        document.getElementById("formSuccess")
+        .textContent =
+        "Message successfully sent!";
+    }
+    });
 
 });
