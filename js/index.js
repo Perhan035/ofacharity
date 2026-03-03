@@ -37,7 +37,7 @@ window.addEventListener('DOMContentLoaded', function () {
         },
         {
             text: 'Download Zip',
-            href: 'One For All Charity.7z',
+            href: 'https://files.fm/f/4zxaqm8jma',
             isButton: false
         },
         {

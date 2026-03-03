@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+    <!-- Indeks stranica -->
+    <url>
+        <loc>https://perhan035.github.io/ofacharity/index.html</loc>
+        <lastmod>2026-03-03</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>1.0</priority>
+    </url>
+
+    <!-- Doniraj stranica -->
+    <url>
+        <loc>https://perhan035.github.io/ofacharity/donate.html</loc>
+        <lastmod>2026-03-03</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+    </url>
+
+    <!-- Autor stranica -->
+    <url>
+        <loc>https://perhan035.github.io/ofacharity/autor.html</loc>
+        <lastmod>2026-03-03</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.4</priority>
+    </url>
+
+</urlset>
