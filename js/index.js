@@ -37,7 +37,7 @@ window.addEventListener('DOMContentLoaded', function () {
         },
         {
             text: 'Download Zip',
-            href: 'https://files.fm/f/4zxaqm8jma',
+            href: 'https://drive.google.com/drive/folders/1H4Isvw0vvaISV1RVZ9JSphSTsOFbMRpD?usp=drive_link',
             isButton: false
         },
         {
