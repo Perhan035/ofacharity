@@ -54,7 +54,7 @@ Suggested donation: $${cause.amount}
 </p>
 
 <button class="btn btn-primary w-100"
-onclick="toggleDonate(${index})">
+onclick="dropdownDonate(${index})">
 Donate
 </button>
 
@@ -73,11 +73,11 @@ id="donatePanel-${index}">
         min="1"
         max="100"
         value="${cause.amount}"
-        oninput="updateSlider(${index}, this.value)"
+        oninput="sliderUpdate(${index}, this.value)"
     >
 
     <button class="btn btn-success w-100 mt-2"
-        onclick="confirmDonation('${cause.title}', ${index})">
+        onclick="potvrdiDonaciju('${cause.title}', ${index})">
         Confirm Donation
     </button>
 
@@ -151,7 +151,7 @@ return;
 }
 
 const filtered =
-causes.filter(
+ciljevi.filter(
 c => c.category === category
 );
 
@@ -161,10 +161,10 @@ prikaziCiljeve(filtered);
 
 prikaziCiljeve(ciljevi);
 
-window.filterCauses = filtrirajCiljeve;
-window.toggleDonate = dropdownDonate;
-window.updateSlider = sliderUpdate;
-window.confirmDonation = potvrdiDonaciju;
+window.filtrirajCiljeve = filtrirajCiljeve;
+window.dropdownDonate = dropdownDonate;
+window.sliderUpdate = sliderUpdate;
+window.potvrdiDonaciju = potvrdiDonaciju;
 
 
 
