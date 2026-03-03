@@ -2,7 +2,7 @@
 window.addEventListener('DOMContentLoaded', function () {
 
     //niz dobrotvornih cilheva sa kategorijama, iznosom i slikom
-const causes = [
+const ciljevi = [
 
 {title:"Children Hospital Support",category:"health",amount:25,img:"images/causes/child-hospital.jpg"},
 {title:"Cancer Research Fund",category:"health",amount:40,img:"images/causes/cancer-researchh.jpg"},
@@ -24,7 +24,7 @@ const causes = [
 
 //Dinamicki prikaz kartica sa dobrotvornim ciljevima
 
-function displayCauses(list){
+function prikaziCiljeve(list){
 
 const container =
 document.getElementById("donationContainer");
@@ -98,7 +98,7 @@ container.appendChild(card);
 
 //Toggluje slider kada se klikne dugme Donate
 
-function toggleDonate(index){
+function dropdownDonate(index){
 
 const panel =
 document.getElementById(`donatePanel-${index}`);
@@ -107,7 +107,7 @@ panel.classList.toggle("d-none");
 
 }
 
-function updateSlider(index,value){
+function sliderUpdate(index,value){
 
 document.getElementById(
 `donationValue-${index}`
@@ -116,7 +116,7 @@ document.getElementById(
 }
 
 //Izbacuje poruku zahvaljenja kad se klikne dugme Confirm Donation
-function confirmDonation(title,index){
+function potvrdiDonaciju(title,index){
 
 const panel =
 document.getElementById(`donatePanel-${index}`);
@@ -143,10 +143,10 @@ message.textContent =
 
 // Filtriranje dobrotvornih ciljeva po kategoriji
 
-function filterCauses(category){
+function filtrirajCiljeve(category){
 
 if(category === "all"){
-displayCauses(causes);
+prikaziCiljeve(ciljevi);
 return;
 }
 
@@ -155,27 +155,16 @@ causes.filter(
 c => c.category === category
 );
 
-displayCauses(filtered);
+prikaziCiljeve(filtered);
 
 }
 
+prikaziCiljeve(ciljevi);
 
-// Funkcionalnost dugmeta "Donate"
-
-function donate(title){
-
-alert(
-"Thank you for supporting:\n" + title
-);
-
-}
-
-displayCauses(causes);
-
-window.filterCauses = filterCauses;
-window.toggleDonate = toggleDonate;
-window.updateSlider = updateSlider;
-window.confirmDonation = confirmDonation;
+window.filterCauses = filtrirajCiljeve;
+window.toggleDonate = dropdownDonate;
+window.updateSlider = sliderUpdate;
+window.confirmDonation = potvrdiDonaciju;
 
 
 

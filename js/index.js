@@ -37,7 +37,12 @@ window.addEventListener('DOMContentLoaded', function () {
         },
         {
             text: 'Download Zip',
-            href: 'download.html',
+            href: 'One For All Charity.7z',
+            isButton: false
+        },
+        {
+            text: 'Dokumentacija',
+            href:'ofadocumentation.odt',
             isButton: false
         }
     ];
@@ -146,15 +151,15 @@ window.addEventListener('DOMContentLoaded', function () {
     
     // Funkcija za otvaranje popupa
 
-    function openPopup(modalId) {
+    function otvoriPopup(modalId) {
 
-    var contentText = "";
+    var kontentText = "";
     var titleText = "";
 
     // Pronalaženje odgovarajućeg objekta iz niza
     for (var i = 0; i < nizInfo.length; i++) {
         if (nizInfo[i].modal === modalId) {
-            contentText = nizInfo[i].text;
+            kontentText = nizInfo[i].text;
             titleText = nizInfo[i].title;
         }
     }
@@ -162,7 +167,7 @@ window.addEventListener('DOMContentLoaded', function () {
     popupBlok.innerHTML = `
         <div style="background:white; padding:30px; max-width:400px; width:90%; text-align:center; position:relative;">
             <h4>${titleText}</h4>
-            <p>${contentText}</p>
+            <p>${kontentText}</p>
             <button id="closePopup" class="btn btn-primary mt-3">Close</button>
         </div>
     `;
@@ -177,16 +182,16 @@ window.addEventListener('DOMContentLoaded', function () {
 
     // Event listeneri za info blokve
 
-    var popupLinks = document.querySelectorAll(".open-popup");
+    var popupLinkovi = document.querySelectorAll(".open-popup");
 
-    for (var k = 0; k < popupLinks.length; k++) {
+    for (var k = 0; k < popupLinkovi.length; k++) {
 
-    popupLinks[k].addEventListener("click", function (e) {
+    popupLinkovi[k].addEventListener("click", function (e) {
 
         e.preventDefault();
 
         var target = this.getAttribute("data-target");
-        openPopup(target);
+        otvoriPopup(target);
 
     });
     }
@@ -220,7 +225,7 @@ window.addEventListener('DOMContentLoaded', function () {
     var ownerContainer = document.getElementById("owner-section");
 
     // Funkcija za kreiranje owner sekcije
-    function createOwnerSection(obj) {
+    function napraviOwnerSekciju(obj) {
 
     var section = `
         <div class="row justify-content-center text-center">
@@ -245,7 +250,7 @@ window.addEventListener('DOMContentLoaded', function () {
 
 
     // Ubacivanje u DOM
-    ownerContainer.innerHTML = createOwnerSection(ownerInfo);
+    ownerContainer.innerHTML = napraviOwnerSekciju(ownerInfo);
 
     // Logika za prosirivanje sekcije
     var toggleBtn = document.getElementById("toggle-owner");
@@ -296,106 +301,106 @@ window.addEventListener('DOMContentLoaded', function () {
 
     // Hvatanje elemenata forme i regeks 
 
-    var nameRegex = /^[A-Z][a-zA-Z]{1,}$/;
+    var imeRegex = /^[A-Z][a-zA-Z]{1,}$/;
     var emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
-    var messageRegex = /^.{10,}$/;
-    var fileRegex = /\.(pdf|doc|docx)$/i;
+    var komentarRegex = /^.{10,}$/;
+    var fajlRegex = /\.(pdf|doc|docx)$/i;
 
-    var form = document.querySelector(".volunteer-form");
+    var forma = document.querySelector(".volunteer-form");
 
-     var firstName = document.getElementById("volunteer-name");
+     var imeFN = document.getElementById("volunteer-name");
     var email = document.getElementById("volunteer-email");
-    var message = document.getElementById("volunteer-message");
-    var volunteerSubject = document.getElementById("volunteer-subject");
+    var komentar = document.getElementById("volunteer-message");
+    var volunteerDropdown = document.getElementById("volunteer-subject");
     var cvInput = document.getElementById("inputGroupFile02");
-    var formSuccess = document.querySelector(".form-errors");
+    var formaUspeh = document.querySelector(".form-errors");
 
    
     
 
     // Logika za validaciju i slanje forme
 
-    function validateFirstName(){
+    function proveriIme(){
 
-    if(!nameRegex.test(firstName.value)){
-        showError(firstName,
+    if(!imeRegex.test(imeFN.value)){
+        pokaziGresku(imeFN,
         "Name must start with capital letter and contain at least 2 letters.");
         return false;
     }
 
-    clearError(firstName);
+    izbrisiGresku(imeFN);
     return true;
     }
 
 
-    function validateEmail(){
+    function proveriEmail(){
 
     if(!emailRegex.test(email.value)){
-        showError(email,
+        pokaziGresku(email,
         "Enter valid email (example@gmail.com)");
         return false;
     }
 
-    clearError(email);
+    izbrisiGresku(email);
     return true;
     }  
 
-    function validateMessage(){
+    function proveriKomentar(){
 
-    if(!messageRegex.test(message.value)){
-        showError(message,
+    if(!komentarRegex.test(komentar.value)){
+        pokaziGresku(komentar,
         "Message must contain at least 10 characters.");
         return false;
     }
 
-    clearError(message);
+    izbrisiGresku(komentar);
     return true;
     
     }
 
-    function validateSubject() {
+    function proveriSubject() {
 
-    if (volunteerSubject.value === "") {
-        showError(volunteerSubject,
+    if (volunteerDropdown.value === "") {
+        pokaziGresku(volunteerDropdown,
             "Please select volunteering type.");
         return false;
     }
 
-    clearError(volunteerSubject);
+    izbrisiGresku(volunteerDropdown);
     return true;
     }
 
 
-    function validateCV() {
+    function proveriCV() {
 
     var file = cvInput.files[0];
 
     if (!file) {
-        showError(cvInput,
+        pokaziGresku(cvInput,
             "Please upload your CV.");
         return false;
     }
 
-    if (!fileRegex.test(file.name)) {
-        showError(cvInput,
+    if (!fajlRegex.test(file.name)) {
+        pokaziGresku(cvInput,
             "Allowed formats: PDF, DOC, DOCX.");
         return false;
     }
 
-    clearError(cvInput);
+    izbrisiGresku(cvInput);
     return true;
     }
 
     //Blur kada se korisnik pomeri sa inputa
-    firstName.addEventListener("blur", validateFirstName);
-    email.addEventListener("blur", validateEmail);
-    message.addEventListener("blur", validateMessage);
-    volunteerSubject.addEventListener("change", validateSubject);
-    cvInput.addEventListener("change", validateCV);
+    imeFN.addEventListener("blur", proveriIme);
+    email.addEventListener("blur", proveriEmail);
+    komentar.addEventListener("blur", proveriKomentar);
+    volunteerDropdown.addEventListener("change", proveriSubject);
+    cvInput.addEventListener("change", proveriCV);
 
     //Pokazivanje greske
 
-   function showError(input, message) {
+   function pokaziGresku(input, message) {
 
     var error = input.nextElementSibling;
 
@@ -414,7 +419,7 @@ window.addEventListener('DOMContentLoaded', function () {
     input.classList.remove("is-valid");
     }
 
-    function clearError(input) {
+    function izbrisiGresku(input) {
 
     var error = input.nextElementSibling;
 
@@ -428,23 +433,23 @@ window.addEventListener('DOMContentLoaded', function () {
 
     //Submmit dugme funkcija
 
-    form.addEventListener("submit", function(e){
+    forma.addEventListener("submit", function(e){
 
     e.preventDefault();
 
-    var val1 = validateFirstName();
-    var val2 = validateEmail();
-    var val3 = validateMessage();
-    var val4 = validateSubject();
-    var val5 = validateCV();
+    var val1 = proveriIme();
+    var val2 = proveriEmail();
+    var val3 = proveriKomentar();
+    var val4 = proveriSubject();
+    var val5 = proveriCV();
 
     var valid = val1 && val2 && val3 && val4 && val5;
 
     if(valid){
-        formSuccess.textContent =
+        formaUspeh.textContent =
         "Message successfully sent!";
     } else {
-        formSuccess.textContent = "";
+        formaUspeh.textContent = "";
     }
 
     });
